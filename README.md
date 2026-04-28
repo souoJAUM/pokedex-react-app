@@ -1,38 +1,36 @@
-# Pokédex React
+Aplicação desenvolvida em React que consome dados da API pública PokeAPI para exibir uma lista de Pokémons, detalhes individuais e uma área de favoritos.
 
-Aplicação desenvolvida em **React** com consumo de API externa (**PokeAPI**), múltiplas páginas internas, **rotas dinâmicas** e links internos entre as páginas. O projeto foi estruturado para atender a uma atividade acadêmica que exige consumo de API, organização em componentes, README completo e arquitetura documentada.
+## Link do projeto online
 
-## Demonstração
+Acesse a aplicação publicada:
 
-Após subir o projeto em um serviço como **Vercel** ou **Netlify**, a aplicação poderá ficar online com uma URL pública.
+https://SEU-LINK-DA-VERCEL-AQUI.vercel.app
 
-> Exemplo de rota dinâmica implementada: `/pokemon/pikachu`
+## Objetivo do projeto
+
+O objetivo desta aplicação é demonstrar o consumo de uma API externa em uma aplicação React, utilizando rotas internas, rotas dinâmicas e navegação entre páginas.
 
 ## Funcionalidades
 
-- Listagem de pokémons consumindo dados da API externa
-- Busca por nome na página inicial
-- Página de detalhes com **rota dinâmica**
-- Página de favoritos
-- Links internos entre as páginas
-- Tratamento de carregamento e erro
-- Persistência simples de favoritos com `localStorage`
-- Estrutura pronta para deploy
+- Listagem de Pokémons consumindo dados da PokeAPI  
+- Página de detalhes de cada Pokémon  
+- Rotas dinâmicas com React Router  
+- Links internos entre páginas  
+- Página de favoritos  
+- Tratamento de carregamento e erro  
+- Página 404 para rotas inexistentes  
 
 ## API utilizada
 
-- **PokeAPI**: https://pokeapi.co/
+A aplicação utiliza a API pública PokeAPI:
 
-Essa API foi escolhida por ser pública, gratuita, simples de consumir e muito adequada para demonstrações de React com rotas e exibição de dados.
+https://pokeapi.co/
 
-## Tecnologias utilizadas
+Principais endpoints utilizados:
 
-- React 18
-- Vite
-- React Router DOM
-- CSS puro
-- Fetch API
-- localStorage
+```text
+https://pokeapi.co/api/v2/pokemon
+https://pokeapi.co/api/v2/pokemon/{name}
 
 ## Estrutura de rotas
 
@@ -67,87 +65,84 @@ npm run build
 npm run preview
 ```
 
-## Como versionar corretamente com Git
 
-```bash
-git init
-git add .
-git commit -m "feat: cria pokedex em react com pokeapi e rotas dinamicas"
-```
 
-O projeto já acompanha um arquivo `.gitignore` adequado para React/Vite.
-
-## Como hospedar online
-
-### Opção 1: Vercel
-
-1. Envie o projeto para um repositório no GitHub
-2. Acesse a Vercel
-3. Importe o repositório
-4. A Vercel detectará automaticamente o projeto Vite
-5. Faça o deploy
-
-O arquivo `vercel.json` já foi incluído para evitar erro em rotas dinâmicas ao recarregar a página.
-
-### Opção 2: Netlify
-
-1. Envie o projeto para o GitHub
-2. Importe no Netlify
-3. Configure o build command como `npm run build`
-4. Configure o publish directory como `dist`
-
-O arquivo `netlify.toml` também foi incluído para corrigir rotas internas no deploy.
 
 ## Arquitetura da aplicação
 
-### Desenho da arquitetura
+pokedex-react-app/
+│
+├── public/
+│
+├── src/
+│   ├── api/
+│   │   └── pokeApi.js
+│   │
+│   ├── components/
+│   │   ├── ErrorMessage.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── Layout.jsx
+│   │   ├── Loading.jsx
+│   │   ├── PokemonCard.jsx
+│   │   └── SearchBar.jsx
+│   │
+│   ├── context/
+│   │   └── FavoritesContext.jsx
+│   │
+│   ├── hooks/
+│   │   └── usePokemonList.js
+│   │
+│   ├── pages/
+│   │   ├── FavoritesPage.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   └── PokemonDetailsPage.jsx
+│   │
+│   ├── routes/
+│   │   └── AppRoutes.jsx
+│   │
+│   ├── utils/
+│   │   └── format.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── styles.css
+│
+├── index.html
+├── package.json
+├── vite.config.js
+├── vercel.json
+└── README.md
 
-```mermaid
-flowchart TD
-    A[Usuário] --> B[Interface React]
-    B --> C[React Router DOM]
-    C --> D[HomePage]
-    C --> E[PokemonDetailsPage - rota dinâmica]
-    C --> F[FavoritesPage]
-    D --> G[usePokemonList]
-    G --> H[pokeApi.js]
-    E --> H
-    F --> H
-    H --> I[PokeAPI]
-    B --> J[FavoritesContext]
-    J --> K[localStorage]
-```
 
-### Organização de pastas
-
-```text
-src/
- ├─ api/
- │   └─ pokeApi.js
- ├─ components/
- │   ├─ ErrorMessage.jsx
- │   ├─ Footer.jsx
- │   ├─ Header.jsx
- │   ├─ Layout.jsx
- │   ├─ Loading.jsx
- │   ├─ PokemonCard.jsx
- │   └─ SearchBar.jsx
- ├─ context/
- │   └─ FavoritesContext.jsx
- ├─ hooks/
- │   └─ usePokemonList.js
- ├─ pages/
- │   ├─ FavoritesPage.jsx
- │   ├─ HomePage.jsx
- │   ├─ NotFoundPage.jsx
- │   └─ PokemonDetailsPage.jsx
- ├─ routes/
- │   └─ AppRoutes.jsx
- ├─ utils/
- │   └─ format.js
- ├─ App.jsx
- ├─ main.jsx
- └─ styles.css
+Usuário
+  │
+  ▼
+Navegador
+  │
+  ▼
+React App
+  │
+  ├── React Router DOM
+  │       ├── /
+  │       ├── /pokemon/:name
+  │       └── /favorites
+  │
+  ├── Componentes reutilizáveis
+  │       ├── Header
+  │       ├── PokemonCard
+  │       ├── SearchBar
+  │       └── Loading
+  │
+  ├── Context API
+  │       └── Gerenciamento de favoritos
+  │
+  └── Camada de API
+          └── Requisições HTTP para PokeAPI
+                    │
+                    ▼
+              Dados dos Pokémons
 ```
 
 ## Explicação resumida da arquitetura
@@ -160,26 +155,7 @@ src/
 - **context/** gerencia favoritos globalmente
 - **utils/** reúne funções auxiliares de formatação
 
-## Requisitos atendidos
 
-- [x] Aplicação em React
-- [x] Consumo e exibição de dados de API externa
-- [x] Mais de uma página interna
-- [x] Rota dinâmica com links internos
-- [x] README com instruções de uso
-- [x] Tecnologias documentadas
-- [x] Arquitetura documentada no README
-- [x] Estrutura pronta para versionamento
-- [x] Estrutura pronta para deploy
+Autor
 
-## Melhorias futuras
-
-- Paginação
-- Filtros por tipo
-- Comparação entre pokémons
-- Tema claro/escuro
-- Testes automatizados
-
-## Autor
-
-Projeto desenvolvido para fins acadêmicos.
+Desenvolvido por João Pedro de Carlos Silveira.

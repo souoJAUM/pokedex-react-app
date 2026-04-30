@@ -70,80 +70,78 @@ npm run preview
 
 ## Arquitetura da aplicação
 
+```mermaid
+flowchart TD
+    A[Usuário] --> B[Navegador]
+    B --> C[React App]
+
+    C --> D[React Router DOM]
+
+    D --> E[HomePage]
+    D --> F[PokemonDetailsPage]
+    D --> G[FavoritesPage]
+    D --> H[NotFoundPage]
+
+    E --> I[SearchBar]
+    E --> J[PokemonCard]
+    E --> K[usePokemonList]
+
+    F --> L[pokeApi.js]
+    G --> M[FavoritesContext]
+
+    K --> L
+    J --> F
+
+    L --> N[PokeAPI REST]
+    N --> O[Dados dos Pokémons]
+
+    M --> P[Gerenciamento de favoritos]
+
+    C --> Q[Componentes reutilizáveis]
+    Q --> R[Header]
+    Q --> S[Footer]
+    Q --> T[Loading]
+    Q --> U[ErrorMessage]
+```
+
+## Estrutura de pastas
+
+```bash
 pokedex-react-app/
-│
 ├── public/
-│
 ├── src/
 │   ├── api/
 │   │   └── pokeApi.js
-│   │
 │   ├── components/
 │   │   ├── ErrorMessage.jsx
 │   │   ├── Footer.jsx
 │   │   ├── Header.jsx
-│   │   ├── Layout.jsx
 │   │   ├── Loading.jsx
 │   │   ├── PokemonCard.jsx
 │   │   └── SearchBar.jsx
-│   │
 │   ├── context/
 │   │   └── FavoritesContext.jsx
-│   │
 │   ├── hooks/
 │   │   └── usePokemonList.js
-│   │
 │   ├── pages/
 │   │   ├── FavoritesPage.jsx
 │   │   ├── HomePage.jsx
 │   │   ├── NotFoundPage.jsx
 │   │   └── PokemonDetailsPage.jsx
-│   │
 │   ├── routes/
 │   │   └── AppRoutes.jsx
-│   │
 │   ├── utils/
 │   │   └── format.js
-│   │
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── styles.css
-│
 ├── index.html
 ├── package.json
 ├── vite.config.js
 ├── vercel.json
 └── README.md
-
-
-Usuário
-  │
-  ▼
-Navegador
-  │
-  ▼
-React App
-  │
-  ├── React Router DOM
-  │       ├── /
-  │       ├── /pokemon/:name
-  │       └── /favorites
-  │
-  ├── Componentes reutilizáveis
-  │       ├── Header
-  │       ├── PokemonCard
-  │       ├── SearchBar
-  │       └── Loading
-  │
-  ├── Context API
-  │       └── Gerenciamento de favoritos
-  │
-  └── Camada de API
-          └── Requisições HTTP para PokeAPI
-                    │
-                    ▼
-              Dados dos Pokémons
 ```
+A aplicação foi construída em React utilizando Vite. O usuário acessa a aplicação pelo navegador, e a navegação interna é controlada pelo React Router DOM. A página inicial exibe os Pokémons consumidos da PokeAPI, enquanto as rotas dinâmicas permitem acessar a página de detalhes de cada Pokémon. O gerenciamento de favoritos é feito por meio da Context API, permitindo compartilhar o estado dos Pokémons favoritados entre diferentes páginas da aplicação.
 
 ## Explicação resumida da arquitetura
 
